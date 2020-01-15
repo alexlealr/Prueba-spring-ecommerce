@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Categorias</title>
+
+  <!-- Custom fonts for this theme -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/jquery.dataTables.css}">
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+  <!-- Theme CSS -->
+  <link href="css/freelancer.min.css" rel="stylesheet">
+</head>
+<body>
+
+<header th:replace="/home::header"></header>
+
+<div class="form-container3">
+		<div class="abs-center">
+			<span>Categorias</span><br>
+		</div>
+		<div class="hr-1"></div>
+		<br>
+		<div align="Left">
+			<button type="button" class="boton-agregar" data-toggle="modal"
+				data-target="#crearCategoria">
+				<i class="fa fa-plus-circle"></i> Agregar
+			</button>
+		</div>
+		<br>
+		<div class="table-responsive">
+			<table id="dtabla" class="table-striped">
+				<thead>
+					<tr class="color">
+						<th>Codigo</th>
+						<th>Nombre categoria</th>
+						<th>Foto</th>
+						<th>Categoria Padre</th>
+						<th><div class="subir">Acciones</div></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="categoria: ${categoriaList}">
+						<td th:text="${categoria.codigo}" />
+						<td th:text="${categoria.nombre}" />
+						<td th:text="${categoria.foto}" />
+						<td th:text="${categoria.categoria_padre}" />
+						<td class="azul"><a th:attr="onclick=|editarCategoria('${categoria.id}','${categoria.codigo}',
+                                    '${categoria.nombre}','${categoria.categoria_padre}')|">Editar</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+<div th:include="categoria/modal-editar.html"></div>
+<div th:include="categoria/modal-agregar.html"></div>
+</body>
+<script type="text/javascript">
+$(document).ready(function () {
+    // DataTable
+    var table = $('#dtabla').DataTable({
+        "language": {
+            "info": '<div class="formato">_END_ de _TOTAL_ páginas</div>',
+            "infoEmpty": "0 de 0.",
+            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+            "zeroRecords": "No se han encontrado coincidencias.",
+            "responsive": true,
+            "paginate": {
+                "first": '<img src="img/icono-flecha-doble-izquierda.png" class="flecha-paginador">',
+                "last":  '<img src="img/icono-flecha-doble-derecha.png" class="flecha-paginador">',
+                "next": '<img src="img/icono-flecha-derecha.png" class="flecha-paginador">',
+                "previous":'<img src="img/icono-flecha-izquierda.png" class="flecha-paginador">'
+            },
+            "lengthMenu": "_MENU_",
+        },
+       
+        "pageLength": 5,
+        "pagingType": "full_numbers",
+        "dom": "<'row'<'col-sm-12 col-md-6'>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-1 col-md-5'><'col-sm-1 col-md-1'l><'col-sm-2 col-md-2'i><'col-sm-1 col-md-4'p>>",
+    });
+    $('div.dataTables_length select').addClass("formato-2");
+    
+   // Apply the search
+    table.columns().every(function () {
+        var that = this;
+        $('input', this.header()).on('keyup change clear', function () {
+            if (that.search() !== this.value) {
+                that
+                        .search(this.value)
+                        .draw();
+            }
+        });
+    });
+});
+</script>
+<script type="text/javascript">
+	function editarCategoria(id, codigo, nombre, padre) {
+		$('#editarCategoria').modal('show');
+		$('#id').text($('#id').val(id));
+		$('#codigo').text($('#codigo').val(codigo));
+		$('#nombre').text($('#nombre').val(nombre));
+		$('#padre').text($('#padre').val(padre));
+	
+	}
+</script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</html>

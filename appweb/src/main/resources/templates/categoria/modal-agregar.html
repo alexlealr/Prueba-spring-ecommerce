@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Agregar categoria</title>
+</head>
+<body>
+	<div class="modal fade" id="crearCategoria" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalCenterTitle">Crear
+						categoria</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+					<form th:action="@{/crear-categoria}" th:object="${categoria}"
+						method="post" enctype="multipart/form-data">
+						<div class="col-lg-12 col-md-15">
+							<div class="form-group">
+								<div class="texto">
+									<label for="codigo_comp">Código:</label>
+								</div>
+								<input class="form-control" id="codigo" name="codigo"
+									type="number" />
+							</div>
+						</div>
+						<div class="col-lg-12 col-md-15">
+							<div class="form-group">
+								<div class="texto">
+									<label for="nombre_componente">Nombre categoria:</label>
+								</div>
+								<input class="form-control" required="required" id="nombre"
+									name="nombre" type="text">
+							</div>
+						</div>
+
+						<div class="col-lg-12 col-md-15">
+							<div class="form-group">
+								<div class="texto">
+									<label for="nombre_componente">Categoria padre:</label>
+								</div>
+								<input class="form-control" required="required" id="categoria_padre"
+									name="categoria_padre" type="text">
+							</div>
+						</div>
+					
+						<div class="col-lg-12 col-md-15">
+							<div class="form-group">
+								<div class="texto">
+									<label for="file">Imagen</label>
+								</div>
+								<input type="file" name="file" class="form-control" />
+
+
+							</div>
+						</div>
+						<div class="hr"></div>
+						<br>
+						<div class="form-row">
+							<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+							<div class="texto3">
+								<a data-dismiss="modal">Cancelar</a>
+							</div>
+							<h4>&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+							<button type="submit" class="myFormButton">Aceptar</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
